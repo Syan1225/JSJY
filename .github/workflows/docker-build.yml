@@ -1,0 +1,26 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # 触发构建的分支
+  pull_request:
+    branches:
+      - main  # 触发构建的分支
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" | docker login registry.cn-hangzhou.aliyuncs.com -u ${{ secrets.ALIYUN_REGISTRY_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t registry.cn-hangzhou.aliyuncs.com/jsjy1225/jsjy1225:latest .
+
+      - name: Push Docker image
+        run: docker push registry.cn-hangzhou.aliyuncs.com/jsjy1225/jsjy1225:latest
