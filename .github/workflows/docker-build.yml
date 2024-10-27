@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log in to Docker Hub
+      - name: Log in to Aliyun Container Registry
         run: echo "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" | docker login registry.cn-hangzhou.aliyuncs.com -u ${{ secrets.ALIYUN_REGISTRY_USERNAME }} --password-stdin
 
       - name: Build Docker image
